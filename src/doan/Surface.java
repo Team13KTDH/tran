@@ -21,17 +21,19 @@ public class Surface extends JPanel {
 	public int d;
 	public int e;
 	public int index;
-	
-	Point vienDan = new Point(175,500);
+
+	// Cac he so
+	int f = 14;
+
+	public int tiLeX = 50;
+	public int tiLeY = 50;
+
+	Point vienDan = new Point(175, 500);
 	// 3d
 	float[] dash1 = { 2f, 0f, 2f };
 	BasicStroke bs1 = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 1.0f, dash1, 2f);
 
-	// Cac he so
-	int f = 14;
-	
 	//
-
 	Object3D object1 = new Object3D();
 	Transformation tm = new Transformation();
 
@@ -39,69 +41,75 @@ public class Surface extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		this.setBackground(Color.BLACK);
-		this.setBounds(700, 0, 750, 750);
+		this.setBounds(300, 0, 750, 750);
 		Graphics2D g2d = (Graphics2D) g;
-		Axis3D(g2d);
 		doDrawing(g2d);
 	}
-	
+
 	// ham ve thi ve vao day
+	public Surface() {
+		this.index = -1;
+	}
 
-		public Surface() {
-			this.index = -1;
-		}
-
-		public void doDrawing(Graphics2D g2d) {
-			// ham ke o
+	public void doDrawing(Graphics2D g2d) {
+		if (index == 1) {
 			Axis(g2d);
-			if (index == 1) {
-
-//				object1.plot(1, 1, 1, 1, g2d, 1);
-//				int x = converX3Dto2D(50, 30);
-//				int z = converZ3Dto2D(30);
-//
-//				drawCone3D(x, z, 100, 200, g2d);
-
-				int f = 7 * 5;
-				XeTang(g2d);
-				Banhrang(g2d, a + 3 * 5, d + 10 * 5, 8 * 5, 2 * 5);
-				ve4banh(g2d, a - f, b + 7 * 5, 2 * 5);
-				
-				//veDan(g2d, vienDan);
-				veHinhChuNhat(g2d, vienDan);
-				duongbang(g2d);
-				// 2 diem duoc chon
-				g2d.setColor(Color.PINK);
-				duongthang((Graphics2D) g2d, 500, 515, 50, 75);
-			}
+			int f = 7 * 5;
+			XeTang(g2d);
+			Banhrang(g2d, a + 3 * 5, d + 10 * 5, 8 * 5, 2 * 5);
+			ve4banh(g2d, a - f, b + 7 * 5, 2 * 5);
+			veDan(g2d, vienDan);
+			duongbang(g2d);
+//			Axis3D(g2d);
+//			object1.plot(1, 1, 1, 1, g2d, 1);
+//			int x = converX3Dto2D(50, 30);
+//			int z = converZ3Dto2D(30);
+//			drawCone3D(x, z, 100, 200, g2d);
 		}
 
-		public void Axis(Graphics2D g2d) {
-			g2d.setColor(Color.GRAY);
-			g2d.setStroke(new BasicStroke(1));
-			for (int i = 0; i <= 160; i++) {
-				g2d.drawLine(5 * i, 0, 5 * i, 750);//
-				g2d.drawLine(0, 5 * i, 750, 5 * i);
-			}
-			g2d.setStroke(new BasicStroke(2));
-			g2d.setColor(Color.BLACK);
+		if (index == 2) {
+			Axis3D(g2d);
+			object1.plot(1, 1, 1, 1, g2d, 1);
+			int x = converX3Dto2D(50, 30);
+			int z = converZ3Dto2D(30);
+			drawCone3D(x, z, 100, 200, g2d);
+
+//			Axis(g2d);
+//			int f = 7 * 5;
+//			XeTang(g2d);
+//			Banhrang(g2d, a + 3 * 5, d + 10 * 5, 8 * 5, 2 * 5);
+//			ve4banh(g2d, a - f, b + 7 * 5, 2 * 5);
+//			veDan(g2d, vienDan);
+//			duongbang(g2d);
 		}
-		
-		public void veDan(Graphics2D g2d, Point i){
-	          g2d.setColor(Color.red);
-	          g2d.fillOval(i.x, i.y, 50 , 10);
-	      }
-		
-		public void veHinhChuNhat(Graphics2D g2d, Point i) {
-			g2d.setColor(Color.red);
-			g2d.fillOval(i.x, i.y, 10 , 10);
-			Point temp1 = tm.translation(i.x, i.y, 50, 0);
-			g2d.fillOval(temp1.x, temp1.y, 10 , 10);
-			Point temp2 = tm.translation(temp1.x, temp1.y, 0, 50);
-			g2d.fillOval(temp2.x, temp2.y, 10 , 10);
-			Point temp3 = tm.translation(temp2.x, temp2.y, 50, 50);
-			g2d.fillOval(temp3.x, temp3.y, 10 , 10);
+	}
+
+	public void Axis(Graphics2D g2d) {
+		g2d.setColor(Color.GRAY);
+		g2d.setStroke(new BasicStroke(1));
+		for (int i = 0; i <= 160; i++) {
+			g2d.drawLine(5 * i, 0, 5 * i, 750);//
+			g2d.drawLine(0, 5 * i, 750, 5 * i);
 		}
+		g2d.setStroke(new BasicStroke(2));
+		g2d.setColor(Color.BLACK);
+	}
+
+	public void veDan(Graphics2D g2d, Point i) {
+		g2d.setColor(Color.red);
+		g2d.fillOval(i.x, i.y, tiLeX, tiLeY);
+	}
+
+	public void veHinhChuNhat(Graphics2D g2d, Point i) {
+		g2d.setColor(Color.red);
+		g2d.fillOval(i.x, i.y, 10, 10);
+		Point temp1 = tm.translation(i.x, i.y, 50, 0);
+		g2d.fillOval(temp1.x, temp1.y, 10, 10);
+		Point temp2 = tm.translation(temp1.x, temp1.y, 0, 50);
+		g2d.fillOval(temp2.x, temp2.y, 10, 10);
+		Point temp3 = tm.translation(temp2.x, temp2.y, 50, 50);
+		g2d.fillOval(temp3.x, temp3.y, 10, 10);
+	}
 
 	//////////////////// 3DDDDD
 	public void Axis3D(Graphics2D g2d) {
@@ -120,7 +128,6 @@ public class Surface extends JPanel {
 		g2d.drawLine(300, 2, 295, 10);
 		g2d.drawLine(300, 2, 305, 10);
 		// oz
-
 		g2d.drawLine(0, 580, 300, 290);
 		g2d.drawString("Oz", 5, 550);
 		g2d.drawLine(2, 580, 2, 570);
@@ -133,19 +140,16 @@ public class Surface extends JPanel {
 
 		}
 		for (float i = 1; i <= 58; i++) {
-			g2d.drawLine((int) (300 - (i * 5.0 * (float) 30 / 29)), (int) (290 + (i * 5)), 600, (int) (290 + (i * 5))); // doi=ke*tan
-																														// 300/290
-			// System.out.println(300-(i*5.0*(float)30/29));
+			g2d.drawLine((int) (300 - (i * 5.0 * (float) 30 / 29)), (int) (290 + (i * 5)), 600, (int) (290 + (i * 5)));
 		}
-
 	}
 
 	public void drawCone3D(int ox, int oy, int r, int h, Graphics2D g2d) {
 		g2d.setColor(Color.BLUE);
-		// scale tá»‰ lá»‡ vÃ¬ hÃ¬nh trÃ²n khi váº½ 3d thÃ nh hÃ¬nh eclip
+
 		int a = r, b = a / 2;
-		// System.out.println(b);
-		// ve hÃ¬nh eclip
+
+		// ve hinh eclip
 		Object3D eclip = new Object3D();
 		eclip.eclipMidpoint(ox, oy, a, b, g2d);
 		// two line can visible
@@ -167,15 +171,12 @@ public class Surface extends JPanel {
 	}
 
 	public int converX3Dto2D(int x, int z) {
-
 		return (int) (x * 5 - z * 5 * 0.7189 + 300); // 0.7189 = sin(30/29)
 	}
 
 	public int converZ3Dto2D(int z) {
 		return (int) (z * 5 * 0.6950 + 290); // 0.6950 = cos(30/29)
 	}
-
-	
 
 	public void XeTang(Graphics2D g2d) {
 		// ve than xe tang
