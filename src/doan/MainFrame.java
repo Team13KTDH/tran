@@ -47,6 +47,7 @@ public class MainFrame extends JFrame implements ActionListener {
 			sf.tiLeX *= 1.05;
 			sf.tiLeY *= 1.05;
 			sf.vienDan.y += -2.2;
+			sf.vemaybay = tm.translation(sf.vemaybay.x, sf.vemaybay.y, -50, 0);
 			if (sf.vienDan.x >= 500)
 				timerTank.stop();
 		}
@@ -74,7 +75,6 @@ public class MainFrame extends JFrame implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				sf.index = 1;
 				timerTank.start();
-//				veXe();
 			}
 		});
 

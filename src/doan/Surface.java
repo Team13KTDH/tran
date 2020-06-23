@@ -20,6 +20,9 @@ public class Surface extends JPanel {
 	public int c;
 	public int d;
 	public int e;
+	public int x1;
+	public int y;
+	public int k;
 	public int index;
 
 	// Cac he so
@@ -29,6 +32,7 @@ public class Surface extends JPanel {
 	public int tiLeY = 50;
 
 	Point vienDan = new Point(175, 500);
+	Point vemaybay = new Point(600, 100);
 	// 3d
 	float[] dash1 = { 2f, 0f, 2f };
 	BasicStroke bs1 = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 1.0f, dash1, 2f);
@@ -60,11 +64,8 @@ public class Surface extends JPanel {
 			ve4banh(g2d, a - f, b + 7 * 5, 2 * 5);
 			veDan(g2d, vienDan);
 			duongbang(g2d);
-//			Axis3D(g2d);
-//			object1.plot(1, 1, 1, 1, g2d, 1);
-//			int x = converX3Dto2D(50, 30);
-//			int z = converZ3Dto2D(30);
-//			drawCone3D(x, z, 100, 200, g2d);
+			g2d.setColor(Color.PINK);
+			MayBay(g2d, vemaybay);
 		}
 
 		if (index == 2) {
@@ -74,13 +75,6 @@ public class Surface extends JPanel {
 			int z = converZ3Dto2D(30);
 			drawCone3D(x, z, 100, 200, g2d);
 
-//			Axis(g2d);
-//			int f = 7 * 5;
-//			XeTang(g2d);
-//			Banhrang(g2d, a + 3 * 5, d + 10 * 5, 8 * 5, 2 * 5);
-//			ve4banh(g2d, a - f, b + 7 * 5, 2 * 5);
-//			veDan(g2d, vienDan);
-//			duongbang(g2d);
 		}
 	}
 
@@ -88,7 +82,7 @@ public class Surface extends JPanel {
 		g2d.setColor(Color.GRAY);
 		g2d.setStroke(new BasicStroke(1));
 		for (int i = 0; i <= 160; i++) {
-			g2d.drawLine(5 * i, 0, 5 * i, 750);//
+			g2d.drawLine(5 * i, 0, 5 * i, 750);
 			g2d.drawLine(0, 5 * i, 750, 5 * i);
 		}
 		g2d.setStroke(new BasicStroke(2));
@@ -223,32 +217,6 @@ public class Surface extends JPanel {
 		g2d.setColor(Color.green);
 		tomau(g2d, a, b, c, d);
 
-	}
-
-	public void duongbang(Graphics2D g2d) {
-		duongthang((Graphics2D) g2d, 22 * 5, d + 11 * 5, 200 * 5, d + 11 * 5);
-		duongthang((Graphics2D) g2d, 0, d + 25 * 5, 200 * 5, d + 25 * 5);
-		duongthang((Graphics2D) g2d, 0 * 5, d + 11 * 5, 3 * 5, d + 11 * 5);
-
-		tomau(g2d, 6 * 5, d + 17 * 5, 15 * 5, d + 18 * 5);
-
-		int a1 = 6;
-		int b1 = 15;
-
-		for (int i = 0; i < 10; i++) {
-			a1 = a1 + f;
-			b1 = b1 + f;
-
-			g2d.setColor(Color.white);
-			tomau(g2d, a1 * 5, d + 17 * 5, b1 * 5, d + 18 * 5);
-
-		}
-	}
-
-	// CHUYEN DONG
-	public void animationXe() {
-//		tf.translation(a1, b1, 3, 3);
-//		tf.translation(c, d, 3, 3);
 	}
 
 	public void tomau(Graphics2D g2d, int x0, int y0, int x1, int y1) {
@@ -466,4 +434,113 @@ public class Surface extends JPanel {
 		}
 	}
 
+	public void MayBay(Graphics2D g2d, Point i) {
+
+		x1 = i.x;
+		y = i.y;
+		// Than
+		DrawElip(g2d, x1, y, 14 * 5, 3 * 5);
+		// Canh tren
+		duongthang(g2d, x1 - 3 * 5, y - 3 * 5, x1, y - 9 * 5);
+		duongthang(g2d, x1, y - 9 * 5, x1 + 3 * 5, y - 10 * 5);
+		duongthang(g2d, x1 + 3 * 5, y - 10 * 5, x1 + 5, y - 3 * 5);
+		// Canh duoi
+		duongthang(g2d, x1 - 3 * 5, y + 5, x1, y + 8 * 5);
+		duongthang(g2d, x1, y + 8 * 5, x1 + 3 * 5, y + 9 * 5);
+		duongthang(g2d, x1 + 3 * 5, y + 9 * 5, x1 + 5, y + 5);
+		// Duoi
+		duongthang(g2d, x1 + 9 * 5, y, x1 + 13 * 5, y - 5 * 5);
+		duongthang(g2d, x1 + 13 * 5, y - 5 * 5, x1 + 17 * 5, y - 5 * 5);
+		duongthang(g2d, x1 + 17 * 5, y - 5 * 5, x1 + 14 * 5, y);
+	}
+
+	public void duongbang(Graphics2D g2d) {
+		duongthang((Graphics2D) g2d, 22 * 5, d + 11 * 5, 200 * 5, d + 11 * 5);
+		duongthang((Graphics2D) g2d, 0, d + 25 * 5, 200 * 5, d + 25 * 5);
+		duongthang((Graphics2D) g2d, 0 * 5, d + 11 * 5, 3 * 5, d + 11 * 5);
+
+		tomau(g2d, 6 * 5, d + 17 * 5, 15 * 5, d + 18 * 5);
+
+		int a1 = 6;
+		int b1 = 15;
+
+		for (int i = 0; i < 10; i++) {
+			a1 = a1 + f;
+			b1 = b1 + f;
+
+			g2d.setColor(Color.white);
+			tomau(g2d, a1 * 5, d + 17 * 5, b1 * 5, d + 18 * 5);
+
+		}
+	}
+
+	public void DrawElip(Graphics2D g2d, int x_center, int y_center, int a, int b) {
+		float p, a2, b2;
+		int x, y;
+		int check1 = 1;
+		int check2 = 1;
+		a2 = a * a;
+		b2 = b * b;
+		x = 0;
+		y = b;
+		p = 2 * ((float) b2 / a2) - (2 * b) + 1;
+
+		// Ve net dut
+		// ve nhanh thu 1(tren trai)
+		while (((float) b2 / a2) * x <= y) {
+			if (check1 % 2 != 0) {
+				for (int i = 0; i < 15; i++) {
+					putnetdut(g2d, x_center, y_center, x, y);
+					if (p < 0) {
+						p = p + 2 * ((float) b2 / a2) * (2 * x + 3);
+					} else {
+						p = p - 4 * y + 2 * ((float) b2 / a2) * (2 * x + 3);
+						y--;
+					}
+					x++;
+				}
+			} else {
+				for (int i = 0; i < 15; i++) {
+					if (p < 0) {
+						p = p + 2 * ((float) b2 / a2) * (2 * x + 3);
+					} else {
+						p = p - 4 * y + 2 * ((float) b2 / a2) * (2 * x + 3);
+						y--;
+					}
+					x++;
+				}
+			}
+			check1++;
+		}
+		// ve net lien
+		x = 0;
+		y = b;
+		p = 2 * ((float) b2 / a2) - (2 * b) + 1;
+		// ve nhanh thu 3(phia duoi ben phai)
+		while (((float) b2 / a2) * x <= y) {
+			putnetdut(g2d, x_center, y_center, x, y);
+			if (p < 0) {
+				p = p + 2 * ((float) b2 / a2) * (2 * x + 3);
+			} else {
+				p = p - 4 * y + 2 * ((float) b2 / a2) * (2 * x + 3);
+				y--;
+			}
+			x++;
+		}
+
+		// ve nhanh thu 4(phia duoi ben trai)
+		y = 0;
+		x = a;
+		p = 2 * ((float) a2 / b2) - 2 * a + 1;
+		while (((float) a2 / b2) * y <= x) {
+			putnetdut(g2d, x_center, y_center, x, y);
+			if (p < 0) {
+				p = p + 2 * ((float) a2 / b2) * (2 * y + 3);
+			} else {
+				p = p - 4 * x + 2 * ((float) a2 / b2) * (2 * y + 3);
+				x--;
+			}
+			y++;
+		}
+	}
 }
