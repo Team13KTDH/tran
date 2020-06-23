@@ -6,21 +6,51 @@ import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.TimerTask.*;
-import java.util.TimerTask;
-import java.util.Timer.*;
 
 import javax.swing.*;
 
-public class MainFrame extends JFrame implements ActionListener, Runnable {
+
+
+public class MainFrame extends JFrame implements ActionListener {
 
 	Surface sf = new Surface();
 	Transformation tm = new Transformation();
-	xeTangThread xtt = new xeTangThread();
-	
+
+
 	JLabel label4 = new JLabel();
 	JButton bt4 = new JButton();
+
+	// 3D_1
 	JButton bt1 = new JButton();
+	JTextField tf1_1 = new JTextField();
+	JTextField tf1_2 = new JTextField();
+	JTextField tf1_3 = new JTextField();
+	JLabel lb1_1 = new JLabel();
+	JLabel lb1_2 = new JLabel();
+	JLabel lb1_3 = new JLabel();
+	// 3D_2
+	JButton bt2 = new JButton();
+	JTextField tf2_1 = new JTextField();
+	JTextField tf2_2 = new JTextField();
+	JTextField tf2_3 = new JTextField();
+	JLabel lb2_1 = new JLabel();
+	JLabel lb2_2 = new JLabel();
+	JLabel lb2_3 = new JLabel();
+
+	// Timer
+	Timer timerTank = new Timer(100, new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			veXe();
+			sf.vienDan = tm.translation(sf.vienDan.x, sf.vienDan.y, 50, 0);
+			sf.tiLeX *= 1.05;
+			sf.tiLeY *= 1.05;
+			sf.vienDan.y += -2.2;
+			if (sf.vienDan.x >= 500)
+				timerTank.stop();
+		}
+	});
 
 	// ham khoi tao
 	public MainFrame() {
@@ -43,26 +73,13 @@ public class MainFrame extends JFrame implements ActionListener, Runnable {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				sf.index = 1;
-				
-					try {
-						
-						for(int i = 0; i<9 ; i++) {
-							veXe();
-							Thread.sleep(100);
-							sf.vienDan = tm.translation(sf.vienDan.x, sf.vienDan.y, 50, 0);
-							sf.tiLeX *= 1.1;
-							sf.tiLeY *= 1.1;
-							sf.vienDan.y += -5;
-							
-						}
-					} catch (Exception e1) {
-						e1.printStackTrace();
-					
-				}	
+				timerTank.start();
+//				veXe();
 			}
 		});
 
-		bt1.setText("Hinh Non");
+		// 3D_1
+		bt1.setText("Ve Hinh Non");
 		bt1.setBounds(1130, 30, 150, 40);
 		bt1.setBorder(BorderFactory.createBevelBorder(1));
 		bt1.setFocusable(false);
@@ -76,17 +93,80 @@ public class MainFrame extends JFrame implements ActionListener, Runnable {
 			}
 		});
 
+		tf1_1.setText("");
+		tf1_1.setBounds(1160, 100, 80, 30);
+		tf1_2.setText("");
+		tf1_2.setBounds(1160, 170, 80, 30);
+		tf1_3.setText("");
+		tf1_3.setBounds(1160, 240, 80, 30);
+
+		lb1_1.setText("X:");
+		lb1_1.setBounds(1140, 100, 40, 40);
+		lb1_1.setFont(new Font("Ink Free", Font.CENTER_BASELINE, 14));
+		lb1_2.setText("Y:");
+		lb1_2.setBounds(1140, 170, 40, 40);
+		lb1_2.setFont(new Font("Ink Free", Font.CENTER_BASELINE, 14));
+		lb1_3.setText("Z:");
+		lb1_3.setBounds(1140, 240, 40, 40);
+		lb1_3.setFont(new Font("Ink Free", Font.CENTER_BASELINE, 14));
+
+		// 3D_2
+		bt2.setText("Ve Elip");
+		bt2.setBounds(1130, 370, 150, 40);
+		bt2.setBorder(BorderFactory.createBevelBorder(1));
+		bt2.setFocusable(false);
+		bt2.setFont(new Font("Ink Free", Font.CENTER_BASELINE, 16));
+
+		bt2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				sf.index = 3;
+				// veHinhNon();
+			}
+		});
+
+		tf2_1.setText("");
+		tf2_1.setBounds(1160, 440, 80, 30);
+		tf2_2.setText("");
+		tf2_2.setBounds(1160, 510, 80, 30);
+		tf2_3.setText("");
+		tf2_3.setBounds(1160, 580, 80, 30);
+
+		lb2_1.setText("X:");
+		lb2_1.setBounds(1140, 440, 40, 40);
+		lb2_1.setFont(new Font("Ink Free", Font.CENTER_BASELINE, 14));
+		lb2_2.setText("Y:");
+		lb2_2.setBounds(1140, 510, 40, 40);
+		lb2_2.setFont(new Font("Ink Free", Font.CENTER_BASELINE, 14));
+		lb2_3.setText("Z:");
+		lb2_3.setBounds(1140, 580, 40, 40);
+		lb2_3.setFont(new Font("Ink Free", Font.CENTER_BASELINE, 14));
+
 		// add labels
 		this.add(label4);
 
 		// add buttons
 		this.add(bt4);
-		bt4.setActionCommand("Play");
+
+		// Add 3D
 		this.add(bt1);
-		bt1.setActionCommand("Hinh Non");
+		this.add(tf1_1);
+		this.add(tf1_2);
+		this.add(tf1_3);
+		this.add(lb1_1);
+		this.add(lb1_2);
+		this.add(lb1_3);
+
+		this.add(bt2);
+		this.add(tf2_1);
+		this.add(tf2_2);
+		this.add(tf2_3);
+		this.add(lb2_1);
+		this.add(lb2_2);
+		this.add(lb2_3);
+
 		this.add(sf);
-		bt4.addActionListener(this);
-		
+
 	}
 
 	public void veXe() {
@@ -99,11 +179,7 @@ public class MainFrame extends JFrame implements ActionListener, Runnable {
 		sf.b = b;
 		sf.c = c;
 		sf.d = d;
-		
-		System.out.println(sf.a);
-		System.out.println(sf.b);
-		System.out.println(sf.c);
-		System.out.println(sf.d);
+
 		sf.repaint();
 	}
 
@@ -111,10 +187,9 @@ public class MainFrame extends JFrame implements ActionListener, Runnable {
 		sf.repaint();
 	}
 
-	Point d1 = new Point(sf.vienDan.x + 20, sf.vienDan.y + 20);
-	Point d2 = new Point(sf.vienDan.x + 50, sf.vienDan.y);
+//	Point d1 = new Point(xt.vienDan.x + 20, xt.vienDan.y + 20);
+//	Point d2 = new Point(xt.vienDan.x + 50, xt.vienDan.y);
 	Point tamO = new Point(0, 0);
-	int k = 0;
 
 	public void actionPerformed(ActionEvent e) {
 //		if ("Play".equals(e.getActionCommand())) {
@@ -157,6 +232,7 @@ public class MainFrame extends JFrame implements ActionListener, Runnable {
 	}
 
 	public static void main(String[] args) {
+
 		EventQueue.invokeLater(new Runnable() {
 
 			@Override
@@ -165,12 +241,6 @@ public class MainFrame extends JFrame implements ActionListener, Runnable {
 				mainframe.setVisible(true);
 			}
 		});
-	}
-
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }
