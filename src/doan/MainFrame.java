@@ -6,18 +6,21 @@ import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 import javax.swing.*;
-
-
 
 public class MainFrame extends JFrame implements ActionListener {
 
 	Surface sf = new Surface();
 	Transformation tm = new Transformation();
 
+	// button restart
+	JButton btRs = new JButton();
 
-	JLabel label4 = new JLabel();
+	// 2D
+	JLabel lb4_viendan = new JLabel();
+	JLabel lb4_maybay = new JLabel();
 	JButton bt4 = new JButton();
 
 	// 3D_1
@@ -38,19 +41,140 @@ public class MainFrame extends JFrame implements ActionListener {
 	JLabel lb2_3 = new JLabel();
 
 	// Timer
-	Timer timerTank = new Timer(100, new ActionListener() {
+//	Timer timerTank = new Timer(500, new ActionListener() {
+//
+//		@Override
+//		public void actionPerformed(ActionEvent e) {
+//			veXe();
+//			sf.vienDan = tm.translation(sf.vienDan.x, sf.vienDan.y, 50, 0);
+//			sf.tiLeX *= 1.02;
+//			sf.tiLeY *= 1.02;
+//			sf.vienDan.y += -3;
+//			sf.vemaybay = tm.translation(sf.vemaybay.x, sf.vemaybay.y, -20, 0);
+//			lb4_maybay.setText("May bay: " + "(" + sf.vemaybay.x + "," + sf.vemaybay.y + ")");
+//			lb4_viendan.setText("Vien dan: " + "(" + sf.vienDan.x + "," + sf.vienDan.y + ")");
+//			if (sf.vienDan.x >= 450) {
+//				timerTank.stop();
+//			}
+//			if(!timerTank.isRunning()) timerNguoi.start();
+//		}
+//	});
+//	int k = 0;
+//	Timer timerNguoi = new Timer(500, new ActionListener() {
+//
+//		@Override
+//		public void actionPerformed(ActionEvent e) {
+//			veXe();
+//			tm.gocquay = 90;
+//			sf.nguoi1 = tm.Quay(sf.nguoi1, sf.nguoi2);
+//			k += 1;
+//			if(k==3) timerNguoi.stop();
+//		}
+//	});
+
+	int k = 0;
+	Thread ban = new Thread(new Runnable() {
 
 		@Override
-		public void actionPerformed(ActionEvent e) {
+		public void run() {
+
+			while (sf.vienDan.x < 450) {
+				veXe();
+				sf.vienDan = tm.translation(sf.vienDan.x, sf.vienDan.y, 50, 0);
+				sf.tiLeX *= 1.02;
+				sf.tiLeY *= 1.02;
+				sf.vienDan.y += -3;
+				lb4_viendan.setText("Vien dan: " + "(" + sf.vienDan.x + "," + sf.vienDan.y + ")");
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			tm.gocquay = 90;
+			sf.nguoi1 = tm.Quay(sf.nguoi1, sf.nguoi2);
 			veXe();
-			sf.vienDan = tm.translation(sf.vienDan.x, sf.vienDan.y, 50, 0);
-			sf.tiLeX *= 1.05;
-			sf.tiLeY *= 1.05;
-			sf.vienDan.y += -2.2;
-			sf.vemaybay = tm.translation(sf.vemaybay.x, sf.vemaybay.y, -50, 0);
-			if (sf.vienDan.x >= 500)
-				timerTank.stop();
 		}
+	});
+
+	Thread bay1 = new Thread(new Runnable() {
+		@Override
+		public void run() {
+			while (true) {
+				Random vitri = new Random();
+
+				while (sf.vemaybay1.x > -100) {
+					int doCao = vitri.nextInt((50 - -50) + 1) + -50;
+					sf.vemaybay1 = tm.translation(sf.vemaybay1.x, sf.vemaybay1.y, -50, doCao);
+					lb4_maybay.setText("May bay: " + "(" + sf.vemaybay1.x + "," + sf.vemaybay1.y + ")");
+					try {
+						Thread.sleep(300);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
+				int valueX = vitri.nextInt((1100 - 700) + 1) + 700;
+				int valueY = vitri.nextInt((300 - 50) + 1) + 50;
+				sf.vemaybay1.x = valueX;
+				sf.vemaybay1.y = valueY;
+			}
+		}
+
+	});
+	Thread bay2 = new Thread(new Runnable() {
+		@Override
+		public void run() {
+			while (true) {
+				Random vitri = new Random();
+				while (sf.vemaybay2.x > -100) {
+					int doCao = vitri.nextInt((50 - -50) + 1) + -50;
+					sf.vemaybay2 = tm.translation(sf.vemaybay2.x, sf.vemaybay2.y, -50, doCao);
+					// lb4_maybay.setText("May bay: " + "(" + sf.vemaybay1.x + "," + sf.vemaybay1.y
+					// + ")");
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
+				int valueX = vitri.nextInt((1100 - 700) + 1) + 700;
+				int valueY = vitri.nextInt((300 - 50) + 1) + 50;
+				sf.vemaybay2.x = valueX;
+				sf.vemaybay2.y = valueY;
+			}
+		}
+
+	});
+	Thread bay3 = new Thread(new Runnable() {
+		@Override
+		public void run() {
+			while (true) {
+				Random vitri = new Random();
+				while (sf.vemaybay3.x > -100) {
+					int doCao = vitri.nextInt((50 - -50) + 1) + -50;
+					sf.vemaybay3 = tm.translation(sf.vemaybay3.x, sf.vemaybay3.y, -50, doCao);
+					// lb4_maybay.setText("May bay: " + "(" + sf.vemaybay1.x + "," + sf.vemaybay1.y
+					// + ")");
+					try {
+						Thread.sleep(200);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
+				int valueX = vitri.nextInt((1100 - 700) + 1) + 700;
+				int valueY = vitri.nextInt((300 - 50) + 1) + 50;
+				sf.vemaybay3.x = valueX;
+				sf.vemaybay3.y = valueY;
+			}
+		}
+
 	});
 
 	// ham khoi tao
@@ -71,10 +195,34 @@ public class MainFrame extends JFrame implements ActionListener {
 		bt4.setFont(new Font("Ink Free", Font.CENTER_BASELINE, 16));
 
 		bt4.addActionListener(new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				sf.index = 1;
-				timerTank.start();
+				ban.start();
+
+				bay1.start();
+				bay2.start();
+				bay3.start();
+
+			}
+		});
+
+		// lb4_maybay.setText("May bay: " + "("+sf.vemaybay.x+","+sf.vemaybay.y+")");
+		lb4_maybay.setBounds(60, 150, 150, 40);
+		lb4_viendan.setBounds(60, 200, 150, 40);
+
+		btRs.setText("Restart");
+		btRs.setBounds(60, 500, 150, 40);
+		btRs.setBorder(BorderFactory.createBevelBorder(1));
+		btRs.setFocusable(false);
+		btRs.setFont(new Font("Ink Free", Font.CENTER_BASELINE, 16));
+
+		btRs.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				sf.index = 1;
+				veXe();
 			}
 		});
 
@@ -143,10 +291,11 @@ public class MainFrame extends JFrame implements ActionListener {
 		lb2_3.setFont(new Font("Ink Free", Font.CENTER_BASELINE, 14));
 
 		// add labels
-		this.add(label4);
-
+		this.add(lb4_maybay);
+		this.add(lb4_viendan);
 		// add buttons
 		this.add(bt4);
+		this.add(btRs);
 
 		// Add 3D
 		this.add(bt1);
