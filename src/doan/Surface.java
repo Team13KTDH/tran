@@ -6,26 +6,29 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.util.Random;
 
-import static java.lang.Math.abs;
-import static java.lang.Thread.sleep;
 import javax.swing.JPanel;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Surface extends JPanel {
-	public int a;
-	public int b;
-	public int c;
-	public int d;
-	public int e;
+	int a = 10 * 5;
+    int b = 103* 5;
+    int c = 15 * 5;
+    int d = 100 * 5;
+    int e = 22 *5;
 	public int x1;
 	public int y;
 	public int k;
 	public int index;
+<<<<<<< HEAD
         public static int height = 750;
         public static int width = 750;
+=======
+
+	Random generator = new Random();
+	int value = generator.nextInt((300 - 50) + 1) + 50;
+
+>>>>>>> 93b751cf05326e139752e7c2ea04e9ce6b69fdf7
 	// Cac he so
 	int f = 14;
 
@@ -33,7 +36,24 @@ public class Surface extends JPanel {
 	public int tiLeY = 50;
 
 	Point vienDan = new Point(175, 500);
-	Point vemaybay = new Point(600, 100);
+    Point nongsung1 = new Point(15*5,100*5);
+    Point nongsung2 = new Point(15*5,101*5);
+    Point nongsung3 = new Point(35*5,90*5);
+    Point nongsung4 = new Point(35*5,91*5);
+    
+	Point vemaybay1 = new Point(1100, value);
+	Point vemaybay2 = new Point(700, value);
+	Point vemaybay3 = new Point(900, value);
+
+	Point diem1 = new Point(500, 450);
+	Point diem2 = new Point(500, 550);
+	Point diem3 = new Point(580, 420);
+	Point diem4 = new Point(580, 550);
+	Point diem5 = new Point(660, 390);
+	Point diem6 = new Point(660, 550);
+	Point diem7 = new Point(740, 360);
+	Point diem8 = new Point(740, 550);
+	
 	// 3d
 	float[] dash1 = { 2f, 0f, 2f };
 	BasicStroke bs1 = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 1.0f, dash1, 2f);
@@ -71,7 +91,13 @@ public class Surface extends JPanel {
 			veDan(g2d, vienDan);
 			duongbang(g2d);
 			g2d.setColor(Color.PINK);
-			MayBay(g2d, vemaybay);
+			MayBay1(g2d, vemaybay1);
+			g2d.setColor(Color.CYAN);
+			MayBay1(g2d, vemaybay2);
+			g2d.setColor(Color.GRAY);
+			MayBay1(g2d, vemaybay3);
+			veTuong(g2d);
+	
 		}
 
 		if (index == 2) {
@@ -79,8 +105,12 @@ public class Surface extends JPanel {
 			object1.plot(1, 1, 1, 1, g2d, 1);
 			int x = converX3Dto2D(50, 30);
 			int z = converZ3Dto2D(30);
+<<<<<<< HEAD
 			//drawCone3D(x, z, 100, 200, g2d);
 
+=======
+			drawCone3D(x, z, 100, 200, g2d);
+>>>>>>> 93b751cf05326e139752e7c2ea04e9ce6b69fdf7
 		}
 	}
 
@@ -98,17 +128,6 @@ public class Surface extends JPanel {
 	public void veDan(Graphics2D g2d, Point i) {
 		g2d.setColor(Color.red);
 		g2d.fillOval(i.x, i.y, tiLeX, tiLeY);
-	}
-
-	public void veHinhChuNhat(Graphics2D g2d, Point i) {
-		g2d.setColor(Color.red);
-		g2d.fillOval(i.x, i.y, 10, 10);
-		Point temp1 = tm.translation(i.x, i.y, 50, 0);
-		g2d.fillOval(temp1.x, temp1.y, 10, 10);
-		Point temp2 = tm.translation(temp1.x, temp1.y, 0, 50);
-		g2d.fillOval(temp2.x, temp2.y, 10, 10);
-		Point temp3 = tm.translation(temp2.x, temp2.y, 50, 50);
-		g2d.fillOval(temp3.x, temp3.y, 10, 10);
 	}
 
 	//////////////////// 3DDDDD
@@ -154,6 +173,29 @@ public class Surface extends JPanel {
 		return (int) (z * 5 * 0.6950 + 290); // 0.6950 = cos(30/29)
 	}
 
+//	public void veNguoi(Graphics2D g2d) {
+//		g2d.setColor(Color.WHITE);
+//		g2d.fillOval(Math.round(nguoi1.x), Math.round(nguoi1.y), 3, 3);
+//		g2d.fillOval(Math.round(nguoi2.x), Math.round(nguoi2.y), 3, 3);
+//		duongthang(g2d, nguoi1.x, nguoi1.y, nguoi2.x, nguoi2.y);
+//		tm.gocquay = 30;
+//		Point temp = tm.Quay(nguoi1, nguoi2);
+//		duongthang(g2d, temp.x, temp.y, nguoi1.x, nguoi1.y);
+//		tm.gocquay = -30;
+//		Point temp2 = tm.Quay(nguoi1, nguoi2);
+//		duongthang(g2d, nguoi1.x, nguoi1.y, temp2.x, temp2.y);
+//
+//	}
+	
+	public void veTuong(Graphics2D g2d) {
+		g2d.setColor(Color.WHITE);
+		duongthang(g2d, diem1.x, diem1.y, diem2.x, diem2.y);
+		duongthang(g2d, diem3.x, diem3.y, diem4.x, diem4.y );
+	
+		duongthang(g2d, diem5.x, diem5.y, diem6.x, diem6.y );
+		duongthang(g2d, diem7.x, diem7.y, diem8.x, diem8.y );
+	}
+	
 	public void XeTang(Graphics2D g2d) {
 		// ve than xe tang
 		int x = 2 * 5;
@@ -409,18 +451,19 @@ public class Surface extends JPanel {
 					x = x + Xinc;
 					y = y + Yinc;
 					g2d.setColor(Color.WHITE);
-					g2d.fillOval(Math.round(x), Math.round(y), 3, 3);
+					g2d.fillOval(Math.round(x), Math.round(y), 5, 5);
 				}
 			}
 			xet++;
 		}
 	}
 
-	public void MayBay(Graphics2D g2d, Point i) {
+	public void MayBay1(Graphics2D g2d, Point i) {
 
 		x1 = i.x;
 		y = i.y;
 		// Than
+		g2d.setColor(Color.GRAY);
 		DrawElip(g2d, x1, y, 14 * 5, 3 * 5);
 		// Canh tren
 		duongthang(g2d, x1 - 3 * 5, y - 3 * 5, x1, y - 9 * 5);
