@@ -20,10 +20,15 @@ public class Surface extends JPanel {
 	public int y;
 	public int k;
 	public int index;
+<<<<<<< HEAD
+        public static int height = 750;
+        public static int width = 750;
+=======
 
 	Random generator = new Random();
 	int value = generator.nextInt((300 - 50) + 1) + 50;
 
+>>>>>>> 93b751cf05326e139752e7c2ea04e9ce6b69fdf7
 	// Cac he so
 	int f = 14;
 
@@ -60,10 +65,15 @@ public class Surface extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		this.setBackground(Color.BLACK);
-		this.setBounds(300, 0, 750, 750);
+		this.setBackground(Color.WHITE);
+		this.setBounds(300, 0, height, width);
 		Graphics2D g2d = (Graphics2D) g;
 		doDrawing(g2d);
+                // -----------------------------test 3d -------------------------------------//
+                Axis3D(g2d); // het toa do
+                Object3D ob = new Object3D();
+                //ob.drawCone3D(-20, 30, 20, 20, 30, g2d); // hinh non (hinh non co 2 diem O (x,y,z) A (x,y+h,z)
+                ob.drawSphere(10, 10, 20, 20, g2d); // hinh cau (hinh cau co 1 diem O (x,y,z)
 	}
 
 	// ham ve thi ve vao day
@@ -98,7 +108,12 @@ public class Surface extends JPanel {
 			object1.plot(1, 1, 1, 1, g2d, 1);
 			int x = converX3Dto2D(50, 30);
 			int z = converZ3Dto2D(30);
+<<<<<<< HEAD
+			//drawCone3D(x, z, 100, 200, g2d);
+
+=======
 			drawCone3D(x, z, 100, 200, g2d);
+>>>>>>> 93b751cf05326e139752e7c2ea04e9ce6b69fdf7
 		}
 	}
 
@@ -120,62 +135,38 @@ public class Surface extends JPanel {
 
 	//////////////////// 3DDDDD
 	public void Axis3D(Graphics2D g2d) {
-
-		g2d.setStroke(new BasicStroke(3));
-		g2d.setColor(Color.BLACK);
-		// ox
-		g2d.drawLine(300, 290, 600, 290);
-		g2d.drawString("Ox", 550, 280);
-		// dau mui ten
-		g2d.drawLine(580, 290, 570, 285);
-		g2d.drawLine(580, 290, 570, 295);
-		// oy
-		g2d.drawLine(300, 290, 300, 0);
-		g2d.drawString("Oy", 275, 15);
-		g2d.drawLine(300, 2, 295, 10);
-		g2d.drawLine(300, 2, 305, 10);
-		// oz
-		g2d.drawLine(0, 580, 300, 290);
-		g2d.drawString("Oz", 5, 550);
-		g2d.drawLine(2, 580, 2, 570);
-		g2d.drawLine(4, 578, 12, 578);
-		// to mau
-		g2d.setColor(Color.GRAY);
-		g2d.setStroke(new BasicStroke(1));
-		for (int i = 1; i <= 140; i++) {
-			g2d.drawLine(300 + i * 5, 290, 0 + i * 5, 580);
-
-		}
-		for (float i = 1; i <= 58; i++) {
-			g2d.drawLine((int) (300 - (i * 5.0 * (float) 30 / 29)), (int) (290 + (i * 5)), 600, (int) (290 + (i * 5)));
-		}
+         g2d.setStroke(new BasicStroke(3));
+         g2d.setColor(Color.BLACK);
+         //ox
+         g2d.drawLine(width/2, height/2, width, height/2);
+         g2d.drawString("Ox", width-20, height/2 - 25);
+         g2d.drawLine(width, height/2, width-10,height/2 -5);
+         g2d.drawLine(width, height/2, width-10, height/2 +5);
+         //oy
+         g2d.drawLine(width/2, height/2, width/2, 0);
+         g2d.drawString("Oy",width/2-25,15);
+         g2d.drawLine(width/2, 0, width/2 - 5, 0 +10);
+         g2d.drawLine(width/2,0, width/2+5,0 + 10);
+         //oz 
+         g2d.drawLine(width/2,height/2,0,height);
+         g2d.drawString("Oz",5,height - 25);
+         g2d.drawLine(2,height,2 , height-10);
+         g2d.drawLine(2,height,2 +10, height);
+         g2d.setColor(Color.GRAY);
+            g2d.setStroke(new BasicStroke(1));
+            for(int i=1; i<=150;i++)
+            {
+                g2d.drawLine(width/2 + i*5, height/2, 0+i*5, height);
+                
+            }
+            for(int i=1; i<=75;i++)
+            {
+                g2d.drawLine(width/2-i*5,height/2 + i*5,width, height/2 + i*5); //doi=ke*tan 300/290
+                //System.out.println(300-(i*5.0*(float)30/29));
+            }
 	}
 
-	public void drawCone3D(int ox, int oy, int r, int h, Graphics2D g2d) {
-		g2d.setColor(Color.BLUE);
-
-		int a = r, b = a / 2;
-
-		// ve hinh eclip
-		Object3D eclip = new Object3D();
-		eclip.eclipMidpoint(ox, oy, a, b, g2d);
-		// two line can visible
-		g2d.drawLine(ox, oy - h, ox - a - 2, oy);
-		g2d.drawLine(ox, oy - h, ox + a, oy);
-		// line index unvisible
-		g2d.setStroke(bs1);
-		g2d.drawLine(ox, oy - h, ox, oy);
-		// g2d.dispose();
-		g2d.drawLine(ox, oy, ox + a, oy);
-		// ve cai ten
-		// tam O
-		g2d.setFont(new Font("Arial", Font.BOLD, 15));
-		g2d.drawString("O", ox - 25, oy);
-		g2d.drawString("A", ox, oy - h - 10);
-		g2d.drawString("r", (ox + a / 2), oy - 10);
-		g2d.drawString("h", ox + 10, oy - (h / 2));
-
-	}
+	
 
 	public int converX3Dto2D(int x, int z) {
 		return (int) (x * 5 - z * 5 * 0.7189 + 300); // 0.7189 = sin(30/29)

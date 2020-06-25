@@ -2,13 +2,15 @@ package doan;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
+import static java.lang.Math.abs;
 
 public class Object3D {
     //put pixel in eclip
     public void plot(int xc, int yc, int x, int y, Graphics2D g2d, int temp)
     {
-        g2d.setStroke(new BasicStroke(3));
+        g2d.setStroke(new BasicStroke(5));
         if(temp==0 || temp==1 || temp==2) g2d.setColor(Color.BLUE);
         else g2d.setColor(Color.WHITE);
         g2d.drawLine(xc+x, yc-y,xc+x,yc-y);
@@ -73,5 +75,229 @@ public class Object3D {
         else temp=0;
     }
     }
-    
+    public void drawCone3D(int ox, int oy,int oz, int r, int h, Graphics2D g2d) {
+		
+                // bien doi cabinet
+                ox=Math.round((float)(ox-Math.sqrt(oz)/4));
+		oy=Math.round((float)(oy+Math.sqrt(oz)/4));
+                // bien doi tao do thuc cua may tinh
+                ox = ox*5 + 375;
+                oy = 375- oy*5 ;
+                h*=5;
+                r*=5;
+                g2d.setColor(Color.BLUE);
+
+		// ve hinh eclip
+		Object3D eclip = new Object3D();
+		eclip.eclipMidpoint(ox, oy, r, r/2, g2d);
+		// two line can visible
+                ///g2d.setStroke(new BasicStroke(1));
+		duongThang(g2d, ox, oy - h, ox - r - 2, oy);
+		duongThang(g2d,ox, oy - h, ox + r, oy);
+		// line index unvisible
+		//g2d.setStroke(bs1);
+		netDut(g2d,ox, oy - h, ox, oy);
+		// g2d.dispose();
+		netDut(g2d,ox, oy, ox + r, oy);
+		// ve cai ten
+		// tam O
+		g2d.setFont(new Font("Arial", Font.BOLD, 15));
+		g2d.drawString("O", ox - 25, oy);
+		g2d.drawString("A", ox, oy - h - 10);
+		g2d.drawString("r", (ox + r / 2), oy - 10);
+		g2d.drawString("h", ox + 10, oy - (h / 2));
+
+	} // vẽ dường thẳng
+    public void duongThang(Graphics2D g2d, int a, int b, int c, int d) {
+		int temp;
+
+			if (abs(c - a) > abs(d - b)) {
+				if (a > c) {
+					temp = a;
+					a = c;
+					c = temp;
+					temp = b;
+					b = d;
+					d = temp;
+				}
+				int x = a;
+				float y = b;
+				float m = (float) (d - b) / (float) (c - a);
+				int count = 0;
+				while (x <= c) {
+					y = y + m;
+//					if (count >= 8 && count <= 14) {
+//						x++;
+//						if (count == 14) {
+//							count = 0;
+//							continue;
+//						}
+//						count++;
+//						continue;
+//					}
+					g2d.setColor(Color.BLUE);
+					g2d.setStroke(new BasicStroke(5));
+					g2d.drawLine(x, Math.round(y), x, Math.round(y));
+					x++;
+					count++;
+				}
+			}
+			if (a == c && b == d) {
+				g2d.setColor(Color.BLUE);
+				g2d.setStroke(new BasicStroke(5));
+				g2d.drawLine(a, b, a, b);
+			} else {
+				if (b > d) {
+					temp = a;
+					a = c;
+					c = temp;
+					temp = b;
+					b = d;
+					d = temp;
+				}
+				float x = a;
+				int y = b;
+				float m = (float) (c - a) / (float) (d - b);
+				int count = 0;
+				while (y <= d) {
+					x = x + m;
+//					if (count >= 8 && count <= 14) {
+//						y++;
+//						if (count == 14) {
+//							count = 0;
+//							continue;
+//						}
+//						count++;
+//						continue;
+//					}
+					g2d.setColor(Color.BLUE);
+					g2d.setStroke(new BasicStroke(5));
+					g2d.drawLine(Math.round(x), y, Math.round(x), y);
+					y++;
+					count++;
+				}
+			}
+
+		}
+	
+    // net dut
+    public void netDut(Graphics2D g2d,int a,int b,int c,int d) {
+		{
+			int temp;
+
+			if (abs(c - a) > abs(d - b)) {
+				if (a > c) {
+					temp = a;
+					a = c;
+					c = temp;
+					temp = b;
+					b = d;
+					d = temp;
+				}
+				int x = a;
+				float y = b;
+				float m = (float) (d - b) / (float) (c - a);
+				int count = 0;
+				while (x <= c) {
+					y = y + m;
+					if (count >= 8 && count <= 14) {
+						x++;
+						if (count == 14) {
+							count = 0;
+							continue;
+						}
+						count++;
+						continue;
+					}
+					g2d.setColor(Color.BLUE);
+					g2d.setStroke(new BasicStroke(5));
+					g2d.drawLine(x, Math.round(y), x, Math.round(y));
+					x++;
+					count++;
+				}
+			}
+			if (a == c && b == d) {
+				g2d.setColor(Color.BLUE);
+				g2d.setStroke(new BasicStroke(5));
+				g2d.drawLine(a, b, a, b);
+			} else {
+				if (b > d) {
+					temp = a;
+					a = c;
+					c = temp;
+					temp = b;
+					b = d;
+					d = temp;
+				}
+				float x = a;
+				int y = b;
+				float m = (float) (c - a) / (float) (d - b);
+				int count = 0;
+				while (y <= d) {
+					x = x + m;
+					if (count >= 8 && count <= 14) {
+						y++;
+						if (count == 14) {
+							count = 0;
+							continue;
+						}
+						count++;
+						continue;
+					}
+					g2d.setColor(Color.BLUE);
+					g2d.setStroke(new BasicStroke(5));
+					g2d.drawLine(Math.round(x), y, Math.round(x), y);
+					y++;
+					count++;
+				}
+			}
+
+		}
+}       
+    void Put8Pixel(Graphics2D g2d, int x, int y,int a,int b) {
+			g2d.setStroke(new BasicStroke(10));
+			g2d.setColor(Color.BLUE);
+			y = 375 - y * 5;
+			x = 375 - x * 5;
+			//g2d.drawLine(375, 375, 375, 375);
+			g2d.setColor(Color.BLUE);
+			g2d.drawLine(x+a*5, y+b*5, x+a*5, y+b*5);
+			g2d.drawLine(y+a*5, x+b*5, y+a*5, x+b*5);
+			g2d.drawLine(x+a*5, 750 - y+b*5, x+a*5, 750 - y+b*5);
+			g2d.drawLine(750 - y+a*5, x+b*5, 750 - y+a*5, x+b*5);
+			g2d.drawLine(750 - y+a*5, 750 - x+b*5, 750 - y+a*5, 750 - x+b*5);
+			g2d.drawLine(750 - x+a*5, 750 - y+b*5, 750 - x+a*5, 750 - y+b*5);
+			g2d.drawLine(750 - x+a*5, y+b*5, 750 - x+a*5, y+b*5);
+			g2d.drawLine(y+a*5, 750 - x+b*5, y+a*5, 750 - x+b*5);
+		}
+                // ve hinh tron (Khuong)
+	    public void drawCircle(Graphics2D g2d, int R,int a,int b) {
+			float p;
+			int d = 0;
+			int x = 0, y = R;
+			Put8Pixel(g2d, x, y,a,b);
+			p = 5/4 - R;
+			while (x < y) {
+				if (p < 0)
+					p += 2 * x + 3;
+				else {
+					p += 2 * (x - y) + 5;
+					y--;
+				}
+				x++;
+				if (d % 13 != 0)
+					Put8Pixel(g2d, x, y,a,b);
+				d++;
+			}
+		}
+            // ve hinh cau (Khuong)
+            public void drawSphere(int x,int y,int z,int r, Graphics2D g2d)
+	{
+		int a1=Math.round((float)( x-Math.sqrt(z)/4));
+		int b1=Math.round((float)( y+Math.sqrt(z)/4));
+		g2d.setColor(Color.RED);
+		g2d.drawLine(a1*5+375,b1*5+375,a1*5+375,b1*5+375);
+		eclipMidpoint(a1*5+375,b1*5+375,r*5,r*5/2,g2d);
+		drawCircle(g2d,r,a1,b1);
+	}
 }
