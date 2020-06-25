@@ -12,10 +12,10 @@ import javax.swing.JPanel;
 
 public class Surface extends JPanel {
 	int a = 10 * 5;
-    int b = 103* 5;
-    int c = 15 * 5;
-    int d = 100 * 5;
-    int e = 22 *5;
+	int b = 103 * 5;
+	int c = 15 * 5;
+	int d = 100 * 5;
+	int e = 22 * 5;
 	public int x1;
 	public int y;
 	public int k;
@@ -30,12 +30,12 @@ public class Surface extends JPanel {
 	public int tiLeX = 50;
 	public int tiLeY = 50;
 
-	Point vienDan = new Point(175, 500);
-    Point nongsung1 = new Point(15*5,100*5);
-    Point nongsung2 = new Point(15*5,101*5);
-    Point nongsung3 = new Point(35*5,90*5);
-    Point nongsung4 = new Point(35*5,91*5);
-    
+	Point vienDan = new Point(155, 480);
+	Point nongsung1 = new Point(15 * 5, 100 * 5);
+	Point nongsung2 = new Point(15 * 5, 101 * 5);
+	Point nongsung3 = new Point(35 * 5, 90 * 5);
+	Point nongsung4 = new Point(35 * 5, 91 * 5);
+
 	Point vemaybay1 = new Point(1100, value);
 	Point vemaybay2 = new Point(700, value);
 	Point vemaybay3 = new Point(900, value);
@@ -48,7 +48,7 @@ public class Surface extends JPanel {
 	Point diem6 = new Point(660, 550);
 	Point diem7 = new Point(740, 360);
 	Point diem8 = new Point(740, 550);
-	
+
 	// 3d
 	float[] dash1 = { 2f, 0f, 2f };
 	BasicStroke bs1 = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 1.0f, dash1, 2f);
@@ -76,10 +76,14 @@ public class Surface extends JPanel {
 			Axis(g2d);
 			int f = 7 * 5;
 			XeTang(g2d);
-			Banhrang(g2d, a + 3 * 5, d + 10 * 5, 8 * 5, 2 * 5);
-			ve4banh(g2d, a - f, b + 7 * 5, 2 * 5);
+            Banhrang(g2d,a+3*5,d+10*5,8*5,2*5);
+            ve4banh(g2d,a-f,b+7*5,2*5);
+            ve4banh(g2d,a-f,b+7*5,1*5);
+            duongbang(g2d);
+            hangrao(g2d,50*5,d+11*5,52*5,d+5*5);
+            co(g2d);
 			veDan(g2d, vienDan);
-			duongbang(g2d);
+			
 			g2d.setColor(Color.PINK);
 			MayBay1(g2d, vemaybay1);
 			g2d.setColor(Color.CYAN);
@@ -87,7 +91,6 @@ public class Surface extends JPanel {
 			g2d.setColor(Color.GRAY);
 			MayBay1(g2d, vemaybay3);
 			veTuong(g2d);
-	
 		}
 
 		if (index == 2) {
@@ -182,32 +185,20 @@ public class Surface extends JPanel {
 		return (int) (z * 5 * 0.6950 + 290); // 0.6950 = cos(30/29)
 	}
 
-//	public void veNguoi(Graphics2D g2d) {
-//		g2d.setColor(Color.WHITE);
-//		g2d.fillOval(Math.round(nguoi1.x), Math.round(nguoi1.y), 3, 3);
-//		g2d.fillOval(Math.round(nguoi2.x), Math.round(nguoi2.y), 3, 3);
-//		duongthang(g2d, nguoi1.x, nguoi1.y, nguoi2.x, nguoi2.y);
-//		tm.gocquay = 30;
-//		Point temp = tm.Quay(nguoi1, nguoi2);
-//		duongthang(g2d, temp.x, temp.y, nguoi1.x, nguoi1.y);
-//		tm.gocquay = -30;
-//		Point temp2 = tm.Quay(nguoi1, nguoi2);
-//		duongthang(g2d, nguoi1.x, nguoi1.y, temp2.x, temp2.y);
-//
-//	}
-	
 	public void veTuong(Graphics2D g2d) {
 		g2d.setColor(Color.WHITE);
 		duongthang(g2d, diem1.x, diem1.y, diem2.x, diem2.y);
-		duongthang(g2d, diem3.x, diem3.y, diem4.x, diem4.y );
-	
-		duongthang(g2d, diem5.x, diem5.y, diem6.x, diem6.y );
-		duongthang(g2d, diem7.x, diem7.y, diem8.x, diem8.y );
+		duongthang(g2d, diem3.x, diem3.y, diem4.x, diem4.y);
+
+		duongthang(g2d, diem5.x, diem5.y, diem6.x, diem6.y);
+		duongthang(g2d, diem7.x, diem7.y, diem8.x, diem8.y);
 	}
-	
+
 	public void XeTang(Graphics2D g2d) {
 		// ve than xe tang
 		int x = 2 * 5;
+
+		g2d.setColor(Color.blue);
 		duongthang((Graphics2D) g2d, a, b, c, b);
 		duongthang((Graphics2D) g2d, a, b, a, d);
 		duongthang((Graphics2D) g2d, c, d, a, d);
@@ -232,28 +223,16 @@ public class Surface extends JPanel {
 		duongthang((Graphics2D) g2d, a - 5 * 5, b + 9 * 5, c + 6 * 5, b + 9 * 5);
 
 		// ve nong sung cua tank
-		duongthang((Graphics2D) g2d, c, d, c + 15 * 5, d);
-		duongthang((Graphics2D) g2d, c, d + 1 * 5, c + 15 * 5, d + 1 * 5);
 
-		// ve dau nong
-		g2d.setColor(Color.blue);
-		tomau(g2d, a - 5 * 5, b + 5 * 5, c + 6 * 5, d + 3 * 5);
-		duongthang((Graphics2D) g2d, c + 15 * 5, d, c + 16 * 5, d - 1 * 5);
-		duongthang((Graphics2D) g2d, c + 15 * 5, d + 1 * 5, c + 16 * 5, d + 2 * 5);
-		duongthang((Graphics2D) g2d, c + 16 * 5, d - 1 * 5, c + 20 * 5, d - 1 * 5);
-		duongthang((Graphics2D) g2d, c + 16 * 5, d + 2 * 5, c + 20 * 5, d + 2 * 5);
-		duongthang((Graphics2D) g2d, c + 20 * 5, d - 1 * 5, c + 20 * 5, d + 2 * 5);
-		duongthang((Graphics2D) g2d, c + 15 * 5, d, c + 15 * 5, d + 1 * 5);
-		duongthang((Graphics2D) g2d, c + 16 * 5, d - 1 * 5, c + 16 * 5, d + 2 * 5);
-		duongthang((Graphics2D) g2d, c + 17 * 5, d - 1 * 5, c + 17 * 5, d + 2 * 5);
-		duongthang((Graphics2D) g2d, c + 19 * 5, d - 1 * 5, c + 19 * 5, d + 2 * 5);
-		g2d.setColor(Color.green);
-		tomau(g2d, a, b, c, d);
+		g2d.drawLine(nongsung1.x, nongsung1.y, nongsung3.x, nongsung3.y);
+		g2d.drawLine(nongsung2.x, nongsung2.y, nongsung4.x, nongsung4.y);
+		g2d.drawLine(nongsung3.x, nongsung3.y, nongsung4.x, nongsung4.y);
 
 	}
 
 	public void tomau(Graphics2D g2d, int x0, int y0, int x1, int y1) {
 		// to mau
+
 		int dy = Math.abs(y1 - y0);
 		int dx = Math.abs(x1 - x0);
 		int x, y;
@@ -261,10 +240,12 @@ public class Surface extends JPanel {
 			x = x1;
 		else
 			x = x0;
+
 		if (y0 >= y1)
 			y = y1;
 		else
 			y = y0;
+
 		g2d.fillRect(x, y, dx, dy);
 	}
 
@@ -300,8 +281,10 @@ public class Surface extends JPanel {
 	void ve4banh(Graphics2D g2d, int xc, int yc, int r) {
 		int kc = 0;
 		for (int i = 0; i < 4; i++) {
+
 			kc += 4 * 5;
 			banhxe(g2d, (xc + kc), yc, r);
+
 		}
 	}
 
@@ -494,18 +477,48 @@ public class Surface extends JPanel {
 		duongthang((Graphics2D) g2d, 0 * 5, d + 11 * 5, 3 * 5, d + 11 * 5);
 
 		tomau(g2d, 6 * 5, d + 17 * 5, 15 * 5, d + 18 * 5);
-
 		int a1 = 6;
 		int b1 = 15;
-
+		int f = 14;
 		for (int i = 0; i < 10; i++) {
 			a1 = a1 + f;
 			b1 = b1 + f;
-
 			g2d.setColor(Color.white);
 			tomau(g2d, a1 * 5, d + 17 * 5, b1 * 5, d + 18 * 5);
-
 		}
+	}
+
+	public void hangrao(Graphics2D g2d, int x0, int y0, int x1, int y1) {
+
+		duongthang((Graphics2D) g2d, x0, y0, x1, y1);
+		duongthang((Graphics2D) g2d, x1, y0, x0, y1);
+		int kc = 2 * 5;
+		int a = x0;
+		int b = x1;
+		int c = x0 + 30 * 5;
+		int d = x1 + 30 * 5;
+
+		for (int i = 0; i < 10; i++) {
+			a = a + kc;
+			b = b + kc;
+
+			duongthang((Graphics2D) g2d, a, y0, b, y1);
+			duongthang((Graphics2D) g2d, b, y0, a, y1);
+		}
+
+		for (int i = 0; i < 10; i++) {
+			c = c + kc;
+			d = d + kc;
+
+			duongthang((Graphics2D) g2d, c, y0, d, y1);
+			duongthang((Graphics2D) g2d, d, y0, c, y1);
+		}
+	}
+
+	public void co(Graphics2D g2d) {
+		g2d.setColor(Color.green);
+		tomau(g2d, 0, d + 26 * 5, 200 * 5, d + 50 * 5);
+
 	}
 
 	public void DrawElip(Graphics2D g2d, int x_center, int y_center, int a, int b) {

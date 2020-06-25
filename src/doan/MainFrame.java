@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Random;
 import java.util.TimerTask;
 
@@ -24,6 +26,8 @@ public class MainFrame extends JFrame {
 
 	// button restart
 	JButton btRs = new JButton();
+	JButton btPause = new JButton();
+	JButton btAgain = new JButton();
 
 	// 2D
 	JLabel lb4_viendan = new JLabel();
@@ -54,12 +58,39 @@ public class MainFrame extends JFrame {
 
 		@Override
 		public void run() {
+			sf.vienDan.x = -100;
+			tm.gocquay = 8;
+			sf.nongsung4 = tm.Quay(sf.nongsung4, sf.nongsung2);
+			sf.nongsung3 = tm.Quay(sf.nongsung3, sf.nongsung1);
+			try {
+				Thread.sleep(700);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			tm.gocquay = 9;
+			sf.nongsung4 = tm.Quay(sf.nongsung4, sf.nongsung2);
+			sf.nongsung3 = tm.Quay(sf.nongsung3, sf.nongsung1);
+			try {
+				Thread.sleep(700);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			tm.gocquay = 9;
+			sf.nongsung4 = tm.Quay(sf.nongsung4, sf.nongsung2);
+			sf.nongsung3 = tm.Quay(sf.nongsung3, sf.nongsung1);
+			try {
+				Thread.sleep(700);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			sf.vienDan.x = 155;
+
 			while (sf.vienDan.x < 450) {
 				veXe();
-				sf.vienDan = tm.translation(sf.vienDan.x, sf.vienDan.y, 50, 0);
-				sf.tiLeX *= 1.02;
-				sf.tiLeY *= 1.02;
-				sf.vienDan.y += -3;
+				sf.vienDan = tm.translation(sf.vienDan.x, sf.vienDan.y, 80, 0);
+				sf.tiLeX *= 1.06;
+				sf.tiLeY *= 1.06;
+				sf.vienDan.y += -4.5;
 				lb4_viendan.setText("Vien dan: " + "(" + sf.vienDan.x + "," + sf.vienDan.y + ")");
 				try {
 					Thread.sleep(700);
@@ -108,33 +139,9 @@ public class MainFrame extends JFrame {
 			sf.vienDan = tm.translation(sf.vienDan.x, sf.vienDan.y, 100, 0);
 			tm.gocquay = 60;
 			sf.diem7 = tm.Quay(sf.diem7, sf.diem8);
-			ban.interrupt();
+			ban.stop();
 		}
 	});
-
-//	    Timer timer = new Timer(100, new ActionListener() {
-//			
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				while (true) {
-//					Random vitri = new Random();
-//					while (sf.vemaybay1.x > -100) {
-//						int doCao = vitri.nextInt((50 - -50) + 1) + -50;
-//						sf.vemaybay1 = tm.translation(sf.vemaybay1.x, sf.vemaybay1.y, -50, doCao);
-//						lb4_maybay1.setText("May bay 1: " + "(" + sf.vemaybay1.x + "," + sf.vemaybay1.y + ")");
-//						try {
-//							Thread.sleep(700);
-//						} catch (InterruptedException e1) {
-//							e1.printStackTrace();
-//						}
-//					}
-//					int valueX = vitri.nextInt((1100 - 700) + 1) + 700;
-//					int valueY = vitri.nextInt((300 - 50) + 1) + 50;
-//					sf.vemaybay1.x = valueX;
-//					sf.vemaybay1.y = valueY;
-//				}
-//			}
-//		});
 
 	Thread bay1 = new Thread(new Runnable() {
 		@Override
@@ -210,7 +217,6 @@ public class MainFrame extends JFrame {
 
 			}
 		}
-
 	});
 
 	// ham khoi tao
@@ -231,26 +237,22 @@ public class MainFrame extends JFrame {
 		bt4.setFont(new Font("Ink Free", Font.CENTER_BASELINE, 16));
 
 		bt4.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				sf.index = 1;
-
 				ban.start();
 				bay1.start();
 				bay2.start();
 				bay3.start();
-
 			}
 		});
 
-		// lb4_maybay.setText("May bay: " + "("+sf.vemaybay.x+","+sf.vemaybay.y+")");
 		lb4_maybay1.setBounds(60, 150, 150, 40);
 		lb4_maybay2.setBounds(60, 200, 150, 40);
 		lb4_maybay3.setBounds(60, 250, 150, 40);
 		lb4_viendan.setBounds(60, 370, 150, 40);
 
-		btRs.setText("Restart");
+		btRs.setText("Resume 2D");
 		btRs.setBounds(60, 500, 150, 40);
 		btRs.setBorder(BorderFactory.createBevelBorder(1));
 		btRs.setFocusable(false);
@@ -268,6 +270,24 @@ public class MainFrame extends JFrame {
 			}
 		});
 
+		
+
+		btPause.setText("Pause 2D");
+		btPause.setBounds(60, 400, 150, 40);
+		btPause.setBorder(BorderFactory.createBevelBorder(1));
+		btPause.setFocusable(false);
+		btPause.setFont(new Font("Ink Free", Font.CENTER_BASELINE, 16));
+
+		btPause.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ban.suspend();
+				bay1.suspend();
+				bay2.suspend();
+				bay3.suspend();
+			}
+		});
+
 		// 3D_1
 		bt1.setText("Ve Hinh Non");
 		bt1.setBounds(1130, 30, 150, 40);
@@ -279,11 +299,7 @@ public class MainFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				sf.index = 2;
-				veHinhNon();
-				bay1.suspend();
-				bay2.suspend();
-				bay3.suspend();
-				ban.suspend();
+				sf.repaint();
 			}
 		});
 
@@ -305,7 +321,7 @@ public class MainFrame extends JFrame {
 		lb1_3.setFont(new Font("Ink Free", Font.CENTER_BASELINE, 14));
 
 		// 3D_2
-		bt2.setText("Ve Elip");
+		bt2.setText("Ve Hinh Cau");
 		bt2.setBounds(1130, 370, 150, 40);
 		bt2.setBorder(BorderFactory.createBevelBorder(1));
 		bt2.setFocusable(false);
@@ -315,7 +331,7 @@ public class MainFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				sf.index = 3;
-				// veHinhNon();
+				repaint();
 			}
 		});
 
@@ -345,6 +361,7 @@ public class MainFrame extends JFrame {
 		// add buttons
 		this.add(bt4);
 		this.add(btRs);
+		this.add(btPause);
 
 		// Add 3D
 		this.add(bt1);
@@ -362,9 +379,8 @@ public class MainFrame extends JFrame {
 		this.add(lb2_1);
 		this.add(lb2_2);
 		this.add(lb2_3);
-
+		
 		this.add(sf);
-
 	}
 
 	public void veXe() {
@@ -392,7 +408,7 @@ public class MainFrame extends JFrame {
 			@Override
 			public void run() {
 				MainFrame mainframe = new MainFrame();
-				SwingUtilities.invokeLater(null);
+				//SwingUtilities.invokeLater(null);
 				mainframe.setVisible(true);
 
 			}
